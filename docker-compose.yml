@@ -1,4 +1,21 @@
 services:
+  
+  # Database service configuration
+  db:
+    image: postgres:16-alpine
+    container_name: db-gen
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+
+  # Frontend service configuration
   frontend:
     build:
       context: ./FrontEnd
@@ -17,4 +34,24 @@ services:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
     restart: always
-   
+  # Backend service configuration
+  backend:
+    build:
+      context: ./BackEnd
+      dockerfile: Dockerfile.dev
+    container_name: backend-gen
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - ./BackEnd:/app
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+    depends_on:
+      - db
+    restart: always
+
+volumes:
+  postgres_data:
+  
