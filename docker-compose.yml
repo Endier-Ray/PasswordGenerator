@@ -1,0 +1,20 @@
+services:
+  frontend:
+    build:
+      context: ./FrontEnd
+      dockerfile: Dockerfile.dev
+    container_name: frontend-gen
+    ports:
+      - "4321:4321"
+    env_file:
+      - .env
+    volumes:
+      - ./FrontEnd:/app
+      - /app/node_modules
+    environment:
+      - HOST=0.0.0.0
+      - PORT=4321
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+    restart: always
+   

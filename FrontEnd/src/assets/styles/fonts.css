@@ -1,0 +1,8 @@
+/* Fonts CSS Variables */
+@font-face {
+    font-family: 'Host Grotesk';
+    src: url('./fonts/HostGrotesk.woff2') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
