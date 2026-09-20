@@ -1,0 +1,9 @@
+@import './fonts.css';
+
+:root {
+    --color-primary: #1e1e1e;
+    --font-family: 'Host Grotesk', system-ui, --apple-system, sans-serif;
+
+    --padding-content: 0.25rem 1rem;
+
+}
