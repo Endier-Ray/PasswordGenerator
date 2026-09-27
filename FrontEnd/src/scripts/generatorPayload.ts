@@ -30,9 +30,10 @@ generateButton?.addEventListener("click", async () => {
     return;
   }
 
-  output.textContent = "Generating...";
+  output.textContent = output.dataset.generating ?? 'Generating...';
   generateButton.disabled = true;
   copyButton.disabled = true;
+  copyButton.textContent = copyButton.dataset.copyLabel ?? 'Copy to Clipboard';
 
   try {
     const password = await generatePassword({
@@ -44,8 +45,11 @@ generateButton?.addEventListener("click", async () => {
     });
 
     output.textContent = password;
+    copyButton.disabled = false;
   } catch (error) {
-    output.textContent = error instanceof Error ? `Error: ${error.message}` : "Error unknown";
+    const errorLabel = output.dataset.errorLabel ?? 'Error';
+    const errorMessage = error instanceof Error ? error.message : output.dataset.unknownError ?? 'Unknown error';
+    output.textContent = `${errorLabel}: ${errorMessage}`;
   } finally {
     generateButton.disabled = false;
     copyButton.disabled = false;
@@ -56,8 +60,11 @@ copyButton?.addEventListener("click", async () => {
   if (
     output?.textContent &&
     !output.textContent.startsWith("Error:") &&
-    output.textContent !== "Generating..."
+    output.textContent !== (output.dataset.generating ?? 'Generating...')
   ) {
     await navigator.clipboard.writeText(output.textContent);
+    if (copyButton) {
+      copyButton.textContent = copyButton.dataset.copiedLabel ?? 'Copied!';
+    }
   }
 });

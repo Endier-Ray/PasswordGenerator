@@ -1,0 +1,30 @@
+---
+import Hero from './Hero.astro';
+import Generator from './PasswordGenerator.astro';
+---
+
+<main class="workspace">
+	<Hero />
+	<Generator />
+</main>
+
+<style>
+	.workspace {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		align-content: center;
+		gap: 1.75rem;
+		width: min(100%, 1120px);
+		min-height: calc(100vh - 160px);
+		margin: 0 auto;
+		padding: clamp(2.5rem, 5vh, 5rem) var(--content-inline-padding);
+	}
+
+	@media (max-width: 680px) {
+		.workspace {
+			min-height: 0;
+			gap: 1.5rem;
+			padding-block: 2.75rem 3.5rem;
+		}
+	}
+</style>

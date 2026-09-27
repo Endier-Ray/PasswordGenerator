@@ -1,0 +1,216 @@
+---
+import { useTranslations } from '../i18n';
+const locale = Astro.currentLocale === 'es' ? 'es' : 'en';
+const t = useTranslations(locale);
+---
+<main class="documentation">
+	<header class="documentation-header">
+		<span class="eyebrow">{t('documentation.eyebrow')}</span>
+		<h1>{t('documentation.title')}<span class="blink">.</span></h1>
+		<p>{t('documentation.subtitle')}</p>
+	</header>
+
+	<div class="documentation-body">
+		<nav class="contents" aria-label={t('documentation.contents.label')}>
+			<span>{t('documentation.contents')}</span>
+			<a href="#overview">{t('documentation.overview.link')}</a>
+			<a href="#generation">{t('documentation.generation.link')}</a>
+			<a href="#security">{t('documentation.security.link')}</a>
+			<a href="#data">{t('documentation.data.link')}</a>
+			<a href="#limits">{t('documentation.limits.link')}</a>
+		</nav>
+
+		<div class="documentation-sections">
+			<section id="overview" aria-labelledby="overview-title">
+				<span class="section-number">{t('documentation.overview.number')}</span>
+				<h2 id="overview-title">{t('documentation.overview.heading')}</h2>
+				<p>{t('documentation.overview.body')}</p>
+				<ol class="flow">
+					<li><strong>{t('documentation.flow.choose')}</strong><span>{t('documentation.flow.choose.body')}</span></li>
+					<li><strong>{t('documentation.flow.generate')}</strong><span>{t('documentation.flow.generate.body')}</span></li>
+					<li><strong>{t('documentation.flow.receive')}</strong><span>{t('documentation.flow.receive.body')}</span></li>
+				</ol>
+			</section>
+
+			<section id="generation" aria-labelledby="generation-title">
+				<span class="section-number">{t('documentation.generation.number')}</span>
+				<h2 id="generation-title">{t('documentation.generation.heading')}</h2>
+				<p>{t('documentation.generation.body')}</p>
+				<p>{t('documentation.generation.validation')}</p>
+			</section>
+
+			<section id="security" aria-labelledby="security-title">
+				<span class="section-number">{t('documentation.security.number')}</span>
+				<h2 id="security-title">{t('documentation.security.heading')}</h2>
+				<p>{t('documentation.security.body')}</p>
+				<p>{t('documentation.security.clipboard')}</p>
+			</section>
+
+			<section id="data" aria-labelledby="data-title">
+				<span class="section-number">{t('documentation.data.number')}</span>
+				<h2 id="data-title">{t('documentation.data.heading')}</h2>
+				<p>{t('documentation.data.body')}</p>
+				<dl class="stored-data">
+					<div><dt>{t('documentation.data.stored.label')}</dt><dd>{t('documentation.data.stored.body')}</dd></div>
+					<div><dt>{t('documentation.data.notStored.label')}</dt><dd>{t('documentation.data.notStored.body')}</dd></div>
+					<div><dt>{t('documentation.data.persistence.label')}</dt><dd>{t('documentation.data.persistence.body')}</dd></div>
+				</dl>
+			</section>
+
+			<section id="limits" aria-labelledby="limits-title">
+				<span class="section-number">{t('documentation.limits.number')}</span>
+				<h2 id="limits-title">{t('documentation.limits.heading')}</h2>
+				<p>{t('documentation.limits.body')}</p>
+				<p>{t('documentation.limits.deployment')}</p>
+			</section>
+		</div>
+	</div>
+</main>
+
+<style>
+	.documentation {
+		width: min(100%, 1120px);
+		margin: 0 auto;
+		padding: clamp(3rem, 6vw, 5rem) var(--content-inline-padding) 6rem;
+	}
+
+	.documentation-header {
+		max-width: 48rem;
+		padding-bottom: 2.5rem;
+	}
+
+	.eyebrow, .section-number, .contents > span {
+		color: var(--color-primary);
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+	}
+
+	h1 {
+		margin: 0.9rem 0 1rem;
+		font-size: clamp(2.5rem, 5vw, 4.2rem);
+		line-height: 1.05;
+		overflow-wrap: anywhere;
+	}
+
+	h1 span { color: var(--color-secondary); }
+
+	.documentation-header p {
+		max-width: 42rem;
+		margin: 0;
+		font-size: 1.1rem;
+		line-height: 1.6;
+	}
+
+	.documentation-body {
+		display: grid;
+		grid-template-columns: minmax(10rem, 0.3fr) minmax(0, 1fr);
+		gap: clamp(2.5rem, 6vw, 5rem);
+		border-top: 1px solid var(--color-secondary-hover);
+	}
+
+	.contents {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 1rem;
+		position: sticky;
+		top: 2rem;
+		align-self: start;
+		padding-top: 2rem;
+	}
+
+	.contents > span { margin-bottom: 0.5rem; }
+
+	.contents a {
+		color: var(--color-primary);
+		text-decoration: none;
+		font-size: 0.9rem;
+	}
+
+	.contents a:hover {
+		text-decoration: underline;
+		text-decoration-color: var(--color-secondary-hover);
+		text-underline-offset: 0.3rem;
+	}
+
+	.contents a:focus-visible {
+		outline: 3px solid var(--color-secondary);
+		outline-offset: 4px;
+	}
+
+	section {
+		padding: 2rem 0 2.5rem;
+		border-bottom: 1px solid var(--color-secondary-hover);
+		scroll-margin-top: 1.5rem;
+	}
+
+	h2 {
+		margin: 0.7rem 0 1.2rem;
+		font-size: clamp(1.4rem, 3vw, 1.8rem);
+		line-height: 1.2;
+	}
+
+	section p {
+		margin: 0 0 1rem;
+		max-width: 65ch;
+		line-height: 1.7;
+	}
+
+	section p:last-child { margin-bottom: 0; }
+
+	code {
+		padding: 0.1rem 0.3rem;
+		border-radius: var(--border-radius-sm);
+		background: color-mix(in srgb, var(--color-secondary) 35%, var(--panel-bg));
+		font-family: var(--font-family);
+		font-size: 0.9em;
+		overflow-wrap: anywhere;
+	}
+
+	.flow {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
+		margin: 1.6rem 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.flow li {
+		display: flex;
+		flex-direction: column;
+		gap: 0.3rem;
+		border-top: 2px solid var(--color-secondary);
+		padding-top: 0.8rem;
+		font-size: 0.88rem;
+		line-height: 1.45;
+	}
+
+	.stored-data { margin: 1.6rem 0 0; }
+
+	.stored-data div {
+		display: grid;
+		grid-template-columns: minmax(7rem, 0.25fr) minmax(0, 1fr);
+		gap: 1rem;
+		padding: 0.85rem 0;
+		border-top: 1px solid var(--color-secondary-hover);
+		line-height: 1.5;
+	}
+
+	.stored-data dt { font-weight: 700; }
+	.stored-data dd { margin: 0; }
+
+	@media (max-width: 720px) {
+		.documentation { padding-bottom: 4rem; }
+		.documentation-body { display: block; }
+		.contents { position: static; flex-direction: row; flex-wrap: wrap; gap: 0.8rem 1.2rem; padding-bottom: 1.5rem; }
+		.contents > span { width: 100%; margin: 0; }
+		.flow { grid-template-columns: 1fr; }
+		.stored-data div { grid-template-columns: 1fr; gap: 0.2rem; }
+	}
+	    .blink {
+        animation: blink 1s step-start infinite;
+    }
+
+</style>

@@ -1,9 +1,26 @@
 @import './fonts.css';
 
 :root {
-    --color-primary: #1e1e1e;
     --font-family: 'Host Grotesk', system-ui, --apple-system, sans-serif;
 
-    --padding-content: 0.25rem 1rem;
+    --bg-color: #f9f7fc;
+    --panel-bg: #ffffff;
+    --color-primary: #1b082b;
+    --color-secondary: #D8B4F8;
+    --color-secondary-hover:#BDB5D5 ;
+    --color-primary-glow: #bdb5d5e4;
+    --color-secondary-glow: var(--color-primary-glow);
+
+    --shadow-color: rgba(216, 180, 248, 0.1);
+    --color-grid-line: color-mix(in srgb, var(--color-secondary) 20%, transparent);
+
+
+    --color-text: var(--color-primary);
+
+    --border-radius-sm: 4px;
+    --motion-fast: 180ms ease;
+
+    --content-inline-padding: clamp(1.25rem, 5vw, 5rem);
+    --padding-content: 1rem var(--content-inline-padding);
 
 }
