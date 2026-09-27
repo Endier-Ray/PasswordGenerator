@@ -1,5 +1,24 @@
 @import './tokens.css';
+@import './animations.css';
 
 *{
     font-family: var(--font-family);
+    box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    margin: 0;
+    color: var(--color-text);
+    background-color: var(--bg-color);
+    background-image: linear-gradient(var(--color-grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--color-grid-line) 1px, transparent 1px);
+    background-size: 48px 48px;
+}
+
+::selection { background: var(--color-secondary); color: var(--color-primary); }
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }

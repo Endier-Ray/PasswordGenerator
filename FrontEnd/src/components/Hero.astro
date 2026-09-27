@@ -1,5 +1,50 @@
+---
+import { useTranslations } from '../i18n';
+const locale = Astro.currentLocale === 'es' ? 'es' : 'en';
+const t = useTranslations(locale);
+---
 <section class="content-hero">
-    <span>Secure and reliable</span>
-    <h1>Welcome to the Password Generator</h1>
-    <p>Generate strong and secure passwords easily.</p>
+    <h1>{t('hero.title')}<em class="blink">.</em></h1>
+    <p>{t('hero.subtitle')}</p>
 </section>
+
+<style>
+    .content-hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 18rem);
+        align-items: end;
+        column-gap: 2rem;
+        min-width: 0;
+        padding: 0 0 1.75rem;
+        border-bottom: 1px solid var(--color-secondary-hover);
+    }
+
+    .content-hero h1 {
+        font-size: clamp(2.3rem, 4.8vw, 3.8rem);
+        line-height: 1.08;
+        margin: 0;
+        color: var(--color-primary);
+        overflow-wrap: break-word;
+    }
+
+    .content-hero em {
+        color: var(--color-secondary);
+        font-style: normal;
+    }
+
+    .content-hero p {
+        max-width: 28ch;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        color: var(--color-text);
+        margin: 0 0 0.2rem;
+    }
+
+    @media (max-width: 680px) {
+        .content-hero { grid-template-columns: 1fr; gap: 0.45rem; }
+    }
+    .blink {
+        animation: blink 1s step-start infinite;
+    }
+
+</style>
