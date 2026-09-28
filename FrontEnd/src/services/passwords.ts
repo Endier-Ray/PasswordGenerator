@@ -1,4 +1,5 @@
-const apiUrl = import.meta.env.PUBLIC_API_URL || "http://localhost:8000";
+const localApiUrl = "http://localhost:8000";
+const apiUrl = import.meta.env.PUBLIC_API_URL || localApiUrl;
 
 export interface PasswordOptions {
     length:number;
@@ -15,13 +16,23 @@ export interface PasswordResponse {
 
 export async function generatePassword(
     options: PasswordOptions): Promise<string> {
-        const response = await fetch(`${apiUrl}/passwords/generate`, {
+        const request = {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(options)
-        });
+        };
+
+        let response: Response;
+        try {
+            response = await fetch(`${apiUrl}/passwords/generate`, request);
+        } catch (error) {
+            if (!(["localhost", "127.0.0.1"].includes(window.location.hostname)) || apiUrl === localApiUrl) {
+                throw error;
+            }
+            response = await fetch(`${localApiUrl}/passwords/generate`, request);
+        }
 
         const data: PasswordResponse = await response.json();
 
