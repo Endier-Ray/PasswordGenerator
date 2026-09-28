@@ -1,0 +1,14 @@
+passwordgenerator.raydev.com.mx {
+	handle /passwords/* {
+		reverse_proxy backend:8000
+	}
+
+	handle /health {
+		reverse_proxy backend:8000
+	}
+
+	handle {
+		root * /srv
+		file_server
+	}
+}
