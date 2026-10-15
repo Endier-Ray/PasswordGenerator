@@ -1,5 +1,6 @@
 import os
 from sqlalchemy import create_engine
+from sqlalchemy.engine import make_url
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
@@ -7,8 +8,12 @@ from sqlalchemy.orm import sessionmaker
 # to point to another PostgreSQL instance.
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:postgres_password@localhost:5432/password_db")
 
+database_url = make_url(DATABASE_URL)
+if database_url.drivername in ("postgres", "postgresql"):
+    database_url = database_url.set(drivername="postgresql+psycopg2")
+
 # pool_pre_ping checks that a reused connection is still active before using it.
-engine = create_engine(DATABASE_URL, pool_pre_ping=True)
+engine = create_engine(database_url, pool_pre_ping=True)
 
 # The session does not commit automatically: each operation decides when to commit
 # or roll back its changes.
